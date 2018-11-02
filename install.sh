@@ -13,6 +13,9 @@ mkdir -p /run/clamav/
 chmod 777 /run/clamav/
 
 echo "TCPSocket 3310" >> /etc/clamav/clamd.conf
+echo "MaxFileSize 1024M" >> /etc/clamav/clamd.conf
+echo "MaxScanSize 1024M" >> /etc/clamav/clamd.conf
+echo "StreamMaxLength 1024M" >> /etc/clamav/clamd.conf
 
 # Symlink for backwards-compatibility, can be removed once service stacks are updated
 ln -s /tmp/scripts/run /root/bootstrap.sh
