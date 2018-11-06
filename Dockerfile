@@ -13,6 +13,4 @@ RUN \
 
 ENV NAME clamav
 
-EXPOSE 8765
-
 CMD ["sh", "/tmp/scripts/run"]
