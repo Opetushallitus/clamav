@@ -1,5 +1,7 @@
 FROM alpine:latest
 
+RUN apk add nss
+
 COPY files/run.sh /tmp/scripts/run
 COPY files/clamav-rest-1.0.2.jar /root/clamav-rest.jar
 
