@@ -9,10 +9,6 @@ apk --no-cache add \
   clamav-libunrar \
   openjdk8-jre-base
 
-for dir in run varlog varlib; do
-  mkdir -p /tmp/$dir/clamav
-done
-
 rm -rf /run/clamav
 ln -fs  /tmp/run/clamav /run/clamav
 

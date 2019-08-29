@@ -1,5 +1,9 @@
 set -eu
 
+for dir in run varlog varlib; do
+  mkdir -p /tmp/$dir/clamav
+done
+
 freshclam
 clamd &
 freshclam -d
