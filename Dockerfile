@@ -2,8 +2,8 @@ FROM alpine:latest
 
 RUN apk add nss
 
-COPY files/run.sh /tmp/scripts/run
-COPY files/clamav-rest-1.0.2.jar /root/clamav-rest.jar
+COPY files/run.sh /usr/local/bin/run
+COPY files/clamav-rest-1.0.2.jar /usr/local/bin/clamav-rest.jar
 
 WORKDIR /root/
 COPY *.sh ./
@@ -14,5 +14,8 @@ RUN \
   rm test.sh
 
 ENV NAME clamav
+RUN addgroup -S oph -g 1001 && adduser -u 1001 -S -G oph oph
+WORKDIR /home/oph
+USER oph
 
-CMD ["sh", "/tmp/scripts/run"]
+CMD ["sh", "/usr/local/bin/run"]
