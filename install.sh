@@ -6,8 +6,7 @@ apk --no-cache add \
   bash \
   clamav \
   clamav-daemon \
-  clamav-libunrar \
-  openjdk8-jre-base
+  clamav-libunrar
 
 rm -rf /run/clamav
 ln -fs  /tmp/run/clamav /run/clamav

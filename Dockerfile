@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM adoptopenjdk/openjdk11:alpine-slim
 
 RUN apk add nss
 
