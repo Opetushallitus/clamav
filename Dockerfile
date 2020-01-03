@@ -3,7 +3,7 @@ FROM alpine:latest
 RUN apk add nss
 
 COPY files/run.sh /usr/local/bin/run
-COPY files/clamav-rest-1.0.2.jar /usr/local/bin/clamav-rest.jar
+COPY files/clamav-rest-1.0.3.jar /usr/local/bin/clamav-rest.jar
 
 WORKDIR /root/
 COPY *.sh ./
