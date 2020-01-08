@@ -2,7 +2,7 @@
 
 ![Travis status](https://api.travis-ci.org/Opetushallitus/clamav.svg?branch=master)
 
-A Docker image for clamav service. Uses [clamav-rest](https://github.com/solita/clamav-rest).
+A Docker image for clamav service. Uses [clamav-rest](https://github.com/Opetushallitus/clamav-rest).
 
 ## Testing
 
