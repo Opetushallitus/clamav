@@ -1,0 +1,41 @@
+name: Clamav
+
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build-and-deploy-container-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to Amazon ECR 
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Set up variables
+        shell: bash
+        run: |
+          export ECR_REPO=190073735177.dkr.ecr.eu-west-1.amazonaws.com/utility
+          echo "ecr_repo=${ECR_REPO}" >> $GITHUB_ENV
+          echo "docker_target=${ECR_REPO}/clamav:ga-${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+      - name: Build container image
+        shell: bash
+        env:
+          DOCKER_TARGET: ${{ env.docker_target }}
+        run: |
+          docker build --build-arg BUILD_VERSION_INFO="commit: ${GITHUB_SHA}\ndate: $(git show -s --format=%ci)\nbranch: ${GITHUB_REF_NAME}\nauthor: $(git show -s --format=%an)" -t ${DOCKER_TARGET} .
+      - name: Deploy container image to ECR
+        shell: bash
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
+          ECR_REPO: ${{ env.ecr_repo }}
+        run: |
+          git clone https://github.com/Opetushallitus/ci-tools.git
+          aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 190073735177.dkr.ecr.eu-west-1.amazonaws.com
+          ./ci-tools/github-build/upload-image.sh clamav

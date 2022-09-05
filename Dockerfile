@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk11:alpine-slim
+FROM amazoncorretto:11-alpine
 
 RUN apk add nss
 
